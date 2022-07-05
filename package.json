@@ -1,0 +1,82 @@
+{
+  "name": "node-mvc",
+  "version": "1.0.0",
+  "description": "Backend API for node mvc sample implementation linked with core business logic from google sheets, aws s3 and sample implementation of textract",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "babel-node ./db/migrations/migration_009_02062022 createAllTables",
+    "undo-migrate": "babel-node ./db/migrations/migration_001_31012022 dropAllTables",
+    "seed": "babel-node ./db/seeds/seed_001_01022022 seed",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ACTECAL/node-mvc.git"
+  },
+  "keywords": [
+    "node-mvc",
+    "express",
+    "passport",
+    "mvc",
+    "aws",
+    "textract",
+    "framework",
+    "s3"
+  ],
+  "author": "gaurav pant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ACTECAL/node-mvc/issues"
+  },
+  "homepage": "https://github.com/ACTECAL/node-mvc#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1085.0",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "date-fns": "^2.28.0",
+    "dotenv": "^14.3.2",
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "express-mysql-session": "^2.1.7",
+    "express-oauth-server": "^2.0.0",
+    "express-session": "^1.17.2",
+    "formidable": "^2.0.1",
+    "fs": "^0.0.1-security",
+    "handlebars": "^4.7.7",
+    "hummus": "^1.0.110",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "log4js": "^6.4.7",
+    "make-runnable": "^1.3.10",
+    "moment": "^2.29.1",
+    "multer": "^1.4.4",
+    "mysql": "^2.18.1",
+    "node-jose": "^2.1.1",
+    "node-oauth2-server": "^2.4.0",
+    "node-qpdf": "github:gauravpant1306/qpdf-js",
+    "nodemailer": "^6.7.2",
+    "nodemon": "^2.0.15",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0",
+    "pdf2pic": "^2.1.4",
+    "pdfjs": "^2.4.7",
+    "pg": "^8.7.1",
+    "pino": "^7.11.0",
+    "qpdf": "^0.1.0-prealpha.1",
+    "qpdf-wrapper": "github:gauravpant1306/qpdf-js",
+    "twilio": "^3.74.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "babel-watch": "^7.7.0"
+  }
+}
