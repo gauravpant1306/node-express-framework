@@ -2,7 +2,7 @@ const dotenv=require("dotenv");
 dotenv.config();
 
 const newRegistration=(messageParam)=>{
-    return `Welcome {$messageParam.username}, you have been succesfully registered with D2C. 
+    return `Welcome {$messageParam.username}, you have been succesfully registered with Actecal. 
     Regards,
     ACTECAL Team`;
 };
