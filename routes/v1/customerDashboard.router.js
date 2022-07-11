@@ -9,7 +9,7 @@ module.exports=(injectedApp,injectedRouter)=>{
     
     router.get('/', app.oauth.authenticate(),getCurrentUser(), customerDashboardController.viewCustomerDashboard);
 
-    router.get('/add-data', app.oauth.authenticate(), customerDashboardController.addNewPolicyPrefillData);
+    router.get('/add-data', app.oauth.authenticate(), customerDashboardController.addData);
 
     return router
 }

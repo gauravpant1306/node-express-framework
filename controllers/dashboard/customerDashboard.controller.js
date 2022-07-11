@@ -60,6 +60,25 @@ const addData = async (req, res) => {
   }
 };
 
+const viewCustomerDashboard= async (req, res) => {
+
+
+    try {
+      const user_id = res.userid;
+
+      //implement your logic here
+
+      data = null;
+      message = 'Data captured successfully';
+      return sendResponse(res, message, error, partialError ? status.created_partial : status.created, { data });
+
+    } catch (error) {
+      message = 'Operation was not successful';
+      return sendResponse(res, message, error, status.error, { logError: true });
+    }
+
+};
+
 //This is ample implementation for AWS textract and 
 //qpdf (decoding password encoded pdf with password provided in user input)
 const decodePDFAndReadWithTextract = async (req, res) => {
@@ -253,5 +272,6 @@ const dec = async function JWEdecrypt(encryptedBody) {
 
 module.exports = {
   addData,
-  decodePDFAndReadWithTextract
+  decodePDFAndReadWithTextract,
+  viewCustomerDashboard
 }
