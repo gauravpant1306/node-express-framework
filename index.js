@@ -5,6 +5,7 @@ const dotenv = require("dotenv")
 dotenv.config();
 const router = express.Router();
 const app = express();
+console.log(process.env.DB_USER)
 //qs library
 app.use(cors());
 app.options('*', cors());

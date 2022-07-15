@@ -8,7 +8,8 @@
     "migrate": "babel-node ./db/migrations/migration_001_31012022 createAllTables",
     "undo-migrate": "babel-node ./db/migrations/migration_001_31012022 dropAllTables",
     "seed": "babel-node ./db/seeds/seed_001_01022022 seed",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "create-migration": "babel-node ./db/migrations/commands/create_migration create"
   },
   "repository": {
     "type": "git",
