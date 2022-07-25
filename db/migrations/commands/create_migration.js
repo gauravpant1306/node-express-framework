@@ -1,5 +1,5 @@
 const fs = require("fs").promises;
-const { withoutInput, oneInput, twoInput } = require("./dataTypes");
+const { withoutInput, oneInput, twoInput } = require("./dataTypes"); // get data types
 
 const readline = require("readline").createInterface({
   input: process.stdin,
@@ -34,10 +34,8 @@ const isValid = (str) => {
 };
 
 const getTableName = async (data) => {
-  let tablename = (await prompt("Enter table name: "))
-    .trim()
-    .split(" ")
-    .join("");
+  let tablename = await prompt("Enter table name: ");
+  tablename = tablename.trim().split(" ").join("");
   while (!isValid(tablename))
     tablename = (await prompt("Enter table name: ")).trim().split(" ").join("");
   data = data.replace(/{tableName}/g, tablename);
@@ -45,15 +43,12 @@ const getTableName = async (data) => {
 };
 
 const inputColumnName = async () => {
-  let columnName = (await prompt("Enter column name: "))
-    .trim()
-    .split(" ")
-    .join("");
-  while (!isValid(columnName))
-    columnName = (await prompt("Enter valid column name: "))
-      .trim()
-      .split(" ")
-      .join("");
+  let columnName = await prompt("Enter column name: ");
+  columnName = columnName.trim().split(" ").join("");
+  while (!isValid(columnName)) {
+    columnName = await prompt("Enter valid column name: ");
+    columnName = columnName.trim().split(" ").join("");
+  }
   return columnName;
 };
 
@@ -109,9 +104,7 @@ const addColumn = async (data) => {
   }
 
   while (numOfCol > 0) {
-    if (column.length > 0) {
-      column += ",\n\t\t";
-    }
+    if (column.length > 0) column += ",\n\t\t";
 
     let variables = {
       columnName: await inputColumnName(),
@@ -122,15 +115,12 @@ const addColumn = async (data) => {
           ? await inputKeywords()
           : "",
     };
-
     variables.isPrimaryKey =
       variables.isPrimaryKey.toLowerCase() == "y" ? "PRIMARY KEY" : "";
 
     column += await replaceVariables(variables);
     numOfCol--;
   }
-  readline.close();
-
   data = data.replace(/{column}/, column);
   return data;
 };
@@ -148,7 +138,18 @@ const replaceVariables = async (col) => {
   return column;
 };
 
+const allowSoftDelete = async (data) => {
+  let allowSoftDelete = await prompt("Allow soft delete? y/n: ");
+  allowSoftDelete =
+    allowSoftDelete.toLowerCase() == "y"
+      ? ",\n\t\tdeleted_on TIMESTAMP WITHOUT TIME ZONE"
+      : "";
+  data = data.replace(/{allowSoftDelete}/, allowSoftDelete);
+  return data;
+};
+
 const writeToFile = async (data) => {
+  readline.close();
   const today = new Date().toLocaleDateString().replace(/\//g, "");
   let filename = `../migrationFiles/migration_${today}_${count}.js`;
   await fs.writeFile(filename, data);
@@ -157,6 +158,7 @@ const writeToFile = async (data) => {
 readTemplateFile()
   .then((data) => getTableName(data))
   .then((data) => addColumn(data))
+  .then((data) => allowSoftDelete(data))
   .then((data) => writeToFile(data))
   .then(() => {
     console.log("File successfully created!");

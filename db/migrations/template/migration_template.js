@@ -1,7 +1,7 @@
 const createTable = () => {
   return `CREATE TABLE IF NOT EXISTS {tableName}
   (
-    {column}
+    {column} {allowSoftDelete}
   )`;
 };
 
