@@ -1,4 +1,5 @@
 # node-express-framework
+
 This code is created as a step forward to MVC framework sample implementation. Migration module is introduced here in order to minimize the direct interaction with database and making queries less complex. Data seed functionality is also introduced.
 
 Please contribute towards the code!!
@@ -11,7 +12,7 @@ once done, for running migration,
 
 <b>npm run migrate</b>
 
-for seed, 
+for seed,
 
 <b>npm run seed</b>
 
@@ -22,13 +23,13 @@ for undo migrate,
 <b><u>Note:</u></b>
 Pending work : for now migration file name need to be changed in package.json for executing a migration. Need to automate this and maintain a migration table to keep track of all migrations. for eg in below part of code in package.json
 "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate": "babel-node ./db/migrations/migration_009_02062022 createAllTables",
-    "undo-migrate": "babel-node ./db/migrations/migration_001_31012022 dropAllTables",
-    "seed": "babel-node ./db/seeds/seed_001_01022022 seed",
-    "start": "nodemon index.js"
-  },
-  
+"test": "echo \"Error: no test specified\" && exit 1",
+"migrate": "babel-node ./db/migrations/migration_009_02062022 createAllTables",
+"undo-migrate": "babel-node ./db/migrations/migration_001_31012022 dropAllTables",
+"seed": "babel-node ./db/seeds/seed_001_01022022 seed",
+"start": "nodemon index.js"
+},
+
   <h2>AWS support</h2>
   AWS services are implemented as sample code. Current services used : 
   <ul>
@@ -52,3 +53,22 @@ Pending work : for now migration file name need to be changed in package.json fo
   <h1>O-Auth</h1>
   
  custom express o-auth wrapper is written for o-auth support. Tested and working o-auth code currently support bearer token, can be modified for opaque tokens and added encryption/decryption functionality
+
+<h1>Database</h1>
+
+<h2>Pools</h2>
+Two database pools provided: MySQL and PostgreSQL.
+
+<h2>Migrations</h2>
+
+<b> node create_migration.js [fileNumber] </b>
+Creates database file ready for migration by using the templates (from /template) and stores it in /migrationFiles. Provide filenumber in the command and as the program runs, provide input necessary for file creation (like table name, column name etc). Soft delete option is also provided. Background checks are also added to prevent common syntax errors.
+
+<b> node migrate.js </b>
+Takes all the files from /migrationFiles and executes all CREATE TABLE commands in PostgreSQL database.
+
+<b> node migrate.js [undo] </b>
+Takes all the files from /migrationFiles and executes all DROP TABLE commands in PostgreSQL database.
+
+<b> node alter_table.js </b>
+Automates creation and execution of common ALTER TABLE queries in PostgreSQL. Choose from available actions and provide necessary input. Background checks are also added to prevent common syntax errors.
